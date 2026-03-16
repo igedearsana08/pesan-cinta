@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Eraaa ❤️</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+text-align:center;
+color:white;
+overflow:hidden;
+
+/* background romantis */
+
+background:url("romantis.png");
+background-size:cover;
+background-position:center;
+}
+
+/* jantung besar */
+
+.bigheart{
+position:absolute;
+top:35%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:120px;
+animation:beat 1.4s infinite;
+}
+
+@keyframes beat{
+0%{transform:translate(-50%,-50%) scale(1)}
+50%{transform:translate(-50%,-50%) scale(1.2)}
+100%{transform:translate(-50%,-50%) scale(1)}
+}
+
+/* teks */
+
+.container{
+position:absolute;
+top:65%;
+left:50%;
+transform:translate(-50%,-50%);
+}
+
+h1{
+font-size:42px;
+margin-bottom:10px;
+}
+
+button{
+padding:15px 25px;
+font-size:18px;
+border:none;
+border-radius:10px;
+background:#ff4d6d;
+color:white;
+cursor:pointer;
+}
+
+#msg{
+display:none;
+max-width:500px;
+margin:auto;
+margin-top:20px;
+font-size:20px;
+line-height:1.6;
+animation:fade 2s;
+}
+
+@keyframes fade{
+from{opacity:0}
+to{opacity:1}
+}
+
+/* mawar */
+
+.rose{
+position:absolute;
+top:-20px;
+font-size:24px;
+animation:fall linear infinite;
+}
+
+/* hati kecil */
+
+.heart{
+position:absolute;
+top:-20px;
+font-size:20px;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-50px)}
+100%{transform:translateY(110vh)}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bigheart">❤️</div>
+
+<div class="container">
+
+<h1>Untuk Eraaa ❤️</h1>
+
+<button onclick="openMsg()">Buka Pesan</button>
+
+<div id="msg">
+
+Eraaa,
+
+Sejak kamu hadir dalam hidupku  
+hari-hariku terasa lebih indah.
+
+Kamu adalah alasan  
+kenapa aku bisa tersenyum setiap hari.
+
+Terima kasih sudah ada ❤️
+
+</div>
+
+</div>
+
+<script>
+
+/* buka pesan */
+
+function openMsg(){
+document.getElementById("msg").style.display="block"
+}
+
+/* mawar jatuh */
+
+function rose(){
+
+let r=document.createElement("div")
+
+r.className="rose"
+r.innerHTML="🌹"
+
+r.style.left=Math.random()*100+"vw"
+r.style.animationDuration=(Math.random()*5+5)+"s"
+
+document.body.appendChild(r)
+
+setTimeout(()=>{r.remove()},10000)
+
+}
+
+/* hati kecil */
+
+function heart(){
+
+let h=document.createElement("div")
+
+h.className="heart"
+h.innerHTML="💖"
+
+h.style.left=Math.random()*100+"vw"
+h.style.animationDuration=(Math.random()*5+5)+"s"
+
+document.body.appendChild(h)
+
+setTimeout(()=>{h.remove()},10000)
+
+}
+
+setInterval(rose,400)
+setInterval(heart,700)
+
+</script>
+
+</body>
+</html>
