@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Kamu ❤️</title>
+
+<style>
+
+body{
+margin:0;
+overflow:hidden;
+font-family:Arial, sans-serif;
+background:linear-gradient(135deg,#ff758c,#ff7eb3);
+text-align:center;
+color:white;
+}
+
+.container{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+}
+
+h1{
+font-size:40px;
+}
+
+button{
+padding:15px 25px;
+font-size:18px;
+border:none;
+border-radius:10px;
+background:#ff3b6b;
+color:white;
+cursor:pointer;
+margin-top:20px;
+}
+
+button:hover{
+background:#ff1744;
+}
+
+.message{
+opacity:0;
+max-width:500px;
+margin:auto;
+font-size:20px;
+transition:2s;
+}
+
+/* bunga */
+
+.rose{
+position:absolute;
+top:-20px;
+font-size:24px;
+animation:fall linear infinite;
+}
+
+/* hati */
+
+.heart{
+position:absolute;
+top:-20px;
+font-size:20px;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-50px)}
+100%{transform:translateY(110vh)}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Untuk Kamu ❤️</h1>
+
+<button onclick="openMessage()">Buka Pesan</button>
+
+<p class="message" id="msg">
+
+Aku mungkin tidak selalu pandai berkata-kata.
+
+Tapi sejak kamu hadir,
+hari-hariku terasa lebih hangat,
+lebih indah, dan lebih berarti.
+
+Terima kasih sudah menjadi bagian dari hidupku.
+
+Dan jika suatu hari dunia terasa berat untukmu,
+ingatlah selalu...
+
+Ada seseorang di sini yang selalu menyayangimu. ❤️
+
+</p>
+
+</div>
+
+<audio id="music" autoplay loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_1f8c7c6c68.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+function openMessage(){
+
+document.getElementById("msg").style.opacity="1";
+
+document.getElementById("music").play();
+
+}
+
+/* mawar */
+
+function createRose(){
+
+let r=document.createElement("div");
+
+r.className="rose";
+
+r.innerHTML="🌹";
+
+r.style.left=Math.random()*100+"vw";
+
+r.style.animationDuration=(Math.random()*5+5)+"s";
+
+document.body.appendChild(r);
+
+setTimeout(()=>{r.remove()},10000)
+
+}
+
+/* hati */
+
+function createHeart(){
+
+let h=document.createElement("div");
+
+h.className="heart";
+
+h.innerHTML="💖";
+
+h.style.left=Math.random()*100+"vw";
+
+h.style.animationDuration=(Math.random()*5+5)+"s";
+
+document.body.appendChild(h);
+
+setTimeout(()=>{h.remove()},10000)
+
+}
+
+setInterval(createRose,300);
+
+setInterval(createHeart,500);
+
+</script>
+
+</body>
+</html>
