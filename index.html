@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Eraaa ❤️</title>
+<style>
+body{
+  margin:0;
+  font-family:'Brush Script MT', cursive;
+  color:white;
+  overflow:hidden; /* cegah scroll */
+  height:100vh;
+  background:#000;
+}
+
+/* background tetap diam */
+.background{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-image:url("images.png");
+  background-size:cover;
+  background-position:center;
+  z-index:-2;
+}
+
+/* overlay gelap */
+.overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.35);
+  z-index:-1;
+}
+
+/* Amplop surat */
+.envelope{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:200px;
+  height:150px;
+  background:#ff4d6d;
+  border-radius:10px;
+  cursor:pointer;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:50px;
+  transition:0.6s;
+  z-index:2;
+}
+.envelope.open{
+  transform:translate(-50%,-50%) rotateX(180deg);
+}
+
+/* Container pesan */
+.container{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:80%;
+  max-width:500px;
+  text-align:justify;
+  display:none;
+  z-index:1;
+}
+
+h1{
+  text-align:center;
+  font-size:45px;
+  margin-bottom:20px;
+}
+
+#msg{
+  font-size:26px;
+  line-height:1.7;
+  text-align:justify;
+  opacity:1;
+}
+
+/* container animasi terpisah, tetap fixed */
+.animations{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:10;
+  will-change:transform; /* optimasi performa */
+}
+
+/* jatuh hati */
+.fallheart{
+  position:absolute;
+  top:0;
+  font-size:28px;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  0%{transform:translateY(-50px);}
+  100%{transform:translateY(110vh);}
+}
+
+/* klik layar */
+.clickheart{
+  position:absolute;
+  font-size:24px;
+  animation:explode 1s forwards;
+}
+@keyframes explode{
+  0%{transform:scale(0);}
+  100%{transform:scale(1.5);opacity:0;}
+}
+
+/* confetti hati */
+.confetti{
+  position:absolute;
+  font-size:28px;
+  animation:confettiFall 2s forwards;
+}
+@keyframes confettiFall{
+  0%{opacity:1; transform:translateY(0) rotate(0deg);}
+  100%{opacity:0; transform:translateY(100vh) rotate(720deg);}
+}
+</style>
+</head>
+<body>
+<div class="background"></div>
+<div class="overlay"></div>
+
+<div class="envelope" id="envelope">💌</div>
+
+<div class="container" id="container">
+<h1>Untuk Eraaa ❤️</h1>
+<div id="msg"></div>
+</div>
+
+<!-- container khusus animasi -->
+<div class="animations" id="animations"></div>
+
+<script>
+// teks romantis
+let text = `Eraaa,
+
+Di antara begitu banyak hal di dunia ini,
+kamu adalah salah satu yang paling indah
+yang pernah hadir dalam hidupku.
+
+Sejak kamu datang,
+hari-hariku terasa lebih hangat,
+lebih berwarna,
+dan lebih berarti.
+
+Mungkin kata-kata ini sederhana,
+tetapi perasaanku tidak pernah sederhana
+saat menyebut namamu.
+
+Terima kasih sudah ada
+di dalam cerita hidupku. ❤️`;
+
+let i=0;
+function typeWriter(){
+  const msgElement = document.getElementById("msg");
+  msgElement.innerHTML = "";
+  function typing(){
+    if(i<text.length){
+      msgElement.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typing,35);
+    } else {
+      createConfetti();
+    }
+  }
+  typing();
+}
+
+// buka amplop
+document.getElementById("envelope").addEventListener("click", function(){
+  this.classList.add("open");
+  setTimeout(()=>{
+    this.style.display="none";
+    const container = document.getElementById("container");
+    container.style.display="block";
+    typeWriter();
+  },600);
+});
+
+// jatuh hati
+let hearts=["❤️","💖","💗","💘"];
+function fallHeart(){
+  let h=document.createElement("div");
+  h.className="fallheart";
+  h.innerHTML=hearts[Math.floor(Math.random()*hearts.length)];
+  h.style.left = Math.random()*90+"vw"; // batasi
+  h.style.animationDuration=(Math.random()*5+5)+"s";
+  document.getElementById("animations").appendChild(h);
+  setTimeout(()=>{h.remove()},10000);
+}
+setInterval(fallHeart,700);
+
+// klik layar -> efek hati
+document.addEventListener("click",function(e){
+  const animContainer = document.getElementById("animations");
+  for(let i=0;i<35;i++){
+    let h=document.createElement("div");
+    h.className="clickheart";
+    h.innerHTML=hearts[Math.floor(Math.random()*hearts.length)];
+    // gunakan transform agar body tidak tergeser
+    let offsetX = (Math.random()*200-100);
+    let offsetY = (Math.random()*200-100);
+    h.style.left = e.clientX + "px";
+    h.style.top = e.clientY + "px";
+    h.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+    h.style.fontSize = (12+Math.random()*30)+"px";
+    animContainer.appendChild(h);
+    setTimeout(()=>{h.remove()},1200);
+  }
+});
+
+// confetti hati setelah pesan selesai diketik
+function createConfetti(){
+  const animContainer = document.getElementById("animations");
+  for(let i=0;i<50;i++){
+    let c=document.createElement("div");
+    c.className="confetti";
+    c.innerHTML="💖";
+    c.style.left = Math.random()*90+"vw";
+    c.style.color = Math.random()>0.5 ? "#ff99cc" : "#cc99ff";
+    animContainer.appendChild(c);
+    setTimeout(()=>{c.remove()},3000);
+  }
+}
+</script>
+</body>
+</html>
