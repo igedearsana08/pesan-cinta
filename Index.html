@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Untuk Kamu ❤️</title>
+
+<style>
+
+body{
+margin:0;
+overflow:hidden;
+font-family:sans-serif;
+background:linear-gradient(135deg,#ff758c,#ff7eb3);
+color:white;
+text-align:center;
+}
+
+.container{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+}
+
+button{
+padding:15px 25px;
+font-size:18px;
+border:none;
+border-radius:10px;
+background:#ff3b6b;
+color:white;
+cursor:pointer;
+}
+
+#msg{
+display:none;
+max-width:500px;
+margin:auto;
+font-size:20px;
+margin-top:20px;
+line-height:1.5;
+}
+
+/* bunga */
+
+.rose{
+position:absolute;
+top:-20px;
+font-size:24px;
+animation:fall linear infinite;
+}
+
+/* hati */
+
+.heart{
+position:absolute;
+top:-20px;
+font-size:20px;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-50px)}
+100%{transform:translateY(110vh)}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Untuk Kamu ❤️</h1>
+
+<button onclick="openMsg()">Buka Pesan</button>
+
+<div id="msg">
+
+Aku mungkin tidak selalu pandai berkata-kata.
+
+Tapi sejak kamu hadir,
+hidupku terasa lebih hangat,
+lebih indah,
+dan lebih berarti.
+
+Terima kasih sudah menjadi bagian dari hidupku. ❤️
+
+</div>
+
+</div>
+
+<script>
+
+function openMsg(){
+document.getElementById("msg").style.display="block";
+}
+
+/* mawar */
+
+function rose(){
+
+let r=document.createElement("div");
+
+r.className="rose";
+r.innerHTML="🌹";
+
+r.style.left=Math.random()*100+"vw";
+r.style.animationDuration=(Math.random()*5+5)+"s";
+
+document.body.appendChild(r);
+
+setTimeout(()=>{r.remove()},10000)
+
+}
+
+/* hati */
+
+function heart(){
+
+let h=document.createElement("div");
+
+h.className="heart";
+h.innerHTML="💖";
+
+h.style.left=Math.random()*100+"vw";
+h.style.animationDuration=(Math.random()*5+5)+"s";
+
+document.body.appendChild(h);
+
+setTimeout(()=>{h.remove()},10000)
+
+}
+
+setInterval(rose,400);
+setInterval(heart,700);
+
+</script>
+
+</body>
+</html>
