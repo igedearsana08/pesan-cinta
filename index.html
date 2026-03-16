@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Eraaa ❤️</title>
+<style>
+html, body {
+  margin:0;
+  padding:0;
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:'Brush Script MT', cursive;
+  background:#000;
+  overflow:hidden;
+  position:relative;
+  color:white;
+  flex-direction:column;
+}
+.background {
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background-image: url("images.png");
+  background-size:cover;
+  background-position:center;
+  z-index:-2;
+}
+.overlay {
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.35);
+  z-index:-1;
+}
+.envelope {
+  width:200px; height:150px;
+  background:#ff4d6d;
+  border-radius:10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:50px;
+  cursor:pointer;
+  transition:0.6s;
+  z-index:2;
+}
+.envelope.open {
+  transform: rotateX(180deg);
+}
+.container {
+  width:70%;
+  max-width:480px;
+  text-align:justify;
+  display:none;
+  z-index:1;
+}
+h1 { text-align:center; font-size:36px; margin-bottom:15px; }
+#msg { font-size:22px; line-height:1.7; text-align:justify; }
+.fallheart { position:absolute; top:-20px; font-size:24px; animation:fall linear infinite; }
+@keyframes fall { 0%{transform:translateY(-50px);} 100%{transform:translateY(110vh);} }
+.clickheart { position:absolute; font-size:22px; animation: explode 1s forwards; }
+@keyframes explode {0%{transform:scale(0)} 100%{transform:scale(1.5);opacity:0}}
+.sparkle { position:absolute; font-size:16px; opacity:0.8; animation:twinkle 3s infinite; }
+@keyframes twinkle{0%,100%{opacity:0.5; transform:scale(0.5);}50%{opacity:1; transform:scale(1.2);}}
+.confetti{position:absolute;font-size:24px;animation:confettiFall 2s forwards;}
+@keyframes confettiFall{0%{opacity:1; transform:translateY(0) rotate(0deg);}100%{opacity:0; transform:translateY(100vh) rotate(720deg);}}
+</style>
+</head>
+<body>
+<div class="background"></div>
+<div class="overlay"></div>
+<div class="envelope" id="envelope">💌</div>
+<div class="container" id="container">
+  <h1>Untuk Eraaa ❤️</h1>
+  <div id="msg"></div>
+</div>
+
+<script>
+let text = `Eraaa,
+
+Di antara begitu banyak hal di dunia ini,
+kamu adalah salah satu yang paling indah
+yang pernah hadir dalam hidupku.
+
+Sejak kamu datang,
+hari-hariku terasa lebih hangat,
+lebih berwarna,
+dan lebih berarti.
+
+Mungkin kata-kata ini sederhana,
+tetapi perasaanku tidak pernah sederhana
+saat menyebut namamu.
+
+Terima kasih sudah ada
+di dalam cerita hidupku. ❤️`;
+
+let i=0;
+function typeWriter(){
+  if(i<text.length){
+    document.getElementById("msg").innerHTML+=text.charAt(i);
+    i++;
+    setTimeout(typeWriter,35);
+  } else { createConfetti(); }
+}
+
+document.getElementById("envelope").addEventListener("click", function(){
+  this.classList.add("open");
+  setTimeout(()=>{
+    this.style.display="none";
+    let container = document.getElementById("container");
+    container.style.display="block";
+    typeWriter();
+    createSparkleLove(container);
+  },600);
+});
+
+let hearts=["❤️","💖","💗","💘"];
+function fallHeart(){
+  let h=document.createElement("div");
+  h.className="fallheart";
+  h.innerHTML=hearts[Math.floor(Math.random()*hearts.length)];
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(Math.random()*5+5)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>{h.remove()},10000);
+}
+setInterval(fallHeart,800);
+
+document.addEventListener("click",function(e){
+  for(let i=0;i<30;i++){
+    let h=document.createElement("div");
+    h.className="clickheart";
+    h.innerHTML=hearts[Math.floor(Math.random()*hearts.length)];
+    h.style.left=(e.clientX+Math.random()*200-100)+"px";
+    h.style.top=(e.clientY+Math.random()*200-100)+"px";
+    h.style.fontSize=(10+Math.random()*30)+"px";
+    document.body.appendChild(h);
+    setTimeout(()=>{h.remove()},1200);
+  }
+})
+
+function createSparkleLove(container){
+  let rect = container.getBoundingClientRect();
+  let cx = rect.left + rect.width/2;
+  let cy = rect.top + rect.height/2;
+  let sparkleContainer = document.createElement("div");
+  sparkleContainer.style.position="absolute";
+  sparkleContainer.style.top=cy+"px";
+  sparkleContainer.style.left=cx+"px";
+  sparkleContainer.style.transform="translate(-50%,-50%)";
+  document.body.appendChild(sparkleContainer);
+  let radii = [rect.width/2+40, rect.width/2+70, rect.width/2+100];
+  radii.forEach(radius=>{
+    for(let t=0; t<360; t+=6){
+      let rad = t*Math.PI/180;
+      let x = radius * Math.sin(rad) * Math.cos(rad);
+      let y = -radius * (0.7*Math.cos(rad) - 0.3*Math.cos(2*rad));
+      let s = document.createElement("div");
+      s.className="sparkle";
+      s.innerHTML="✨";
+      s.style.color = Math.random()>0.5 ? "#ff99cc" : "#cc99ff";
+      s.style.left = x+"px";
+      s.style.top = y+"px";
+      sparkleContainer.appendChild(s);
+      let angle=0;
+      setInterval(()=>{
+        angle+=0.15;
+        let rad2 = t*Math.PI/180 + angle*Math.PI/180;
+        let newX = radius * Math.sin(rad2) * Math.cos(rad2);
+        let newY = -radius * (0.7*Math.cos(rad2) - 0.3*Math.cos(2*rad2));
+        s.style.left = newX+"px";
+        s.style.top = newY+"px";
+      },60);
+    }
+  });
+}
+
+function createConfetti(){
+  for(let i=0;i<50;i++){
+    let c=document.createElement("div");
+    c.className="confetti";
+    c.innerHTML="💖";
+    c.style.left=Math.random()*100+"vw";
+    c.style.color = Math.random()>0.5 ? "#ff99cc" : "#cc99ff";
+    document.body.appendChild(c);
+    setTimeout(()=>{c.remove()},3000);
+  }
+}
+</script>
+</body>
+</html>
