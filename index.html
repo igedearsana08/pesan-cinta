@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Eraaa ❤️</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+text-align:center;
+color:white;
+overflow:hidden;
+height:100vh;
+}
+
+/* background */
+
+.background{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background-image:url("images.png");
+background-size:cover;
+background-position:center;
+z-index:-2;
+}
+
+/* lapisan gelap */
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.35);
+z-index:-1;
+}
+
+/* tulisan */
+
+.container{
+position:absolute;
+top:65%;
+left:50%;
+transform:translate(-50%,-50%);
+}
+
+h1{
+font-size:40px;
+}
+
+button{
+padding:15px 25px;
+font-size:18px;
+border:none;
+border-radius:10px;
+background:#ff4d6d;
+color:white;
+cursor:pointer;
+}
+
+#msg{
+display:none;
+max-width:500px;
+margin:auto;
+margin-top:20px;
+font-size:20px;
+line-height:1.7;
+}
+
+/* hati jatuh */
+
+.fallheart{
+position:absolute;
+top:-20px;
+font-size:24px;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-50px)}
+100%{transform:translateY(110vh)}
+}
+
+/* hati klik */
+
+.clickheart{
+position:absolute;
+font-size:22px;
+animation:explode 1s forwards;
+}
+
+@keyframes explode{
+0%{transform:scale(0)}
+100%{transform:scale(1.5);opacity:0}
+}
+
+/* animasi jantung membentuk hati */
+
+.heartcircle{
+position:absolute;
+left:50%;
+top:35%;
+transform:translate(-50%,-50%);
+}
+
+.dot{
+position:absolute;
+font-size:22px;
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.4)}
+100%{transform:scale(1)}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+<div class="overlay"></div>
+
+<div class="heartcircle" id="heartshape"></div>
+
+<div class="container">
+
+<h1>Untuk Eraaa ❤️</h1>
+
+<button onclick="openMsg()">Buka Pesan</button>
+
+<div id="msg"></div>
+
+</div>
+
+<script>
+
+/* teks romantis */
+
+let text = `Eraaa,
+
+Di antara begitu banyak hal di dunia ini,
+kamu adalah salah satu yang paling indah
+yang pernah hadir dalam hidupku.
+
+Sejak kamu datang,
+hari-hariku terasa lebih hangat,
+lebih berwarna,
+dan lebih berarti.
+
+Mungkin kata-kata ini sederhana,
+tetapi perasaanku tidak pernah sederhana
+saat menyebut namamu.
+
+Terima kasih sudah ada
+di dalam cerita hidupku. ❤️
+`
+
+let i = 0
+
+function typeWriter(){
+
+if(i < text.length){
+
+document.getElementById("msg").innerHTML += text.charAt(i)
+
+i++
+
+setTimeout(typeWriter,35)
+
+}
+
+}
+
+function openMsg(){
+
+document.getElementById("msg").style.display="block"
+
+typeWriter()
+
+}
+
+/* hati jatuh */
+
+let hearts=["❤️","💖","💗","💘","💝"]
+
+function fallHeart(){
+
+let h=document.createElement("div")
+
+h.className="fallheart"
+
+h.innerHTML=hearts[Math.floor(Math.random()*hearts.length)]
+
+h.style.left=Math.random()*100+"vw"
+
+h.style.animationDuration=(Math.random()*4+4)+"s"
+
+document.body.appendChild(h)
+
+setTimeout(()=>{h.remove()},10000)
+
+}
+
+setInterval(fallHeart,200)
+
+/* kejutan saat klik */
+
+document.addEventListener("click",function(e){
+
+for(let i=0;i<15;i++){
+
+let h=document.createElement("div")
+
+h.className="clickheart"
+
+h.innerHTML="💖"
+
+h.style.left=(e.clientX+Math.random()*100-50)+"px"
+
+h.style.top=(e.clientY+Math.random()*100-50)+"px"
+
+document.body.appendChild(h)
+
+setTimeout(()=>{h.remove()},1000)
+
+}
+
+})
+
+/* bentuk hati dari titik */
+
+let container=document.getElementById("heartshape")
+
+for(let t=0;t<360;t+=10){
+
+let rad=t*Math.PI/180
+
+let x=16*Math.pow(Math.sin(rad),3)
+let y=13*Math.cos(rad)-5*Math.cos(2*rad)-2*Math.cos(3*rad)-Math.cos(4*rad)
+
+let dot=document.createElement("div")
+
+dot.className="dot"
+dot.innerHTML="❤️"
+
+dot.style.left=(x*10)+"px"
+dot.style.top=(-y*10)+"px"
+
+container.appendChild(dot)
+
+}
+
+</script>
+
+</body>
+</html>
