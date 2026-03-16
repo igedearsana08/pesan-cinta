@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surprise Untuk Eraaa ❤️</title>
+<style>
+body{
+  margin:0;
+  font-family:'Brush Script MT', cursive;
+  color:white;
+  height:100vh;
+  overflow:hidden;
+  background:#000;
+}
+.background{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-image:url("images.png");
+  background-size:cover;
+  background-position:center;
+  z-index:-2;
+}
+.overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.35);
+  z-index:-1;
+}
+/* Amplop */
+.envelope{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:200px;
+  height:150px;
+  background:#ff4d6d;
+  border-radius:10px;
+  cursor:pointer;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:50px;
+  transition:0.6s;
+  z-index:2;
+}
+.envelope.open{
+  transform:translate(-50%,-50%) rotateX(180deg);
+}
+/* Container pesan */
+.container{
+  position:absolute;
+  top:20%;
+  left:50%;
+  transform:translateX(-50%);
+  width:80%;
+  max-width:500px;
+  text-align:center;
+  display:none;
+  z-index:1;
+  padding:20px;
+  box-sizing:border-box;
+}
+h1{
+  font-size:50px;
+  margin-bottom:20px;
+}
+/* Kotak cincin love */
+.ring-box{
+  width:150px;
+  height:150px;
+  margin:20px auto;
+  position:relative;
+  transform:scale(0);
+  transition:transform 1s ease;
+  cursor:pointer;
+}
+.ring-box.open{
+  transform:scale(1);
+}
+.love-shape{
+  width:100%;
+  height:100%;
+  background:#ff4d6d;
+  clip-path: polygon(50% 0%, 61% 16%, 78% 16%, 88% 28%, 88% 45%, 50% 95%, 12% 45%, 12% 28%, 22% 16%, 39% 16%);
+  position:absolute;
+  top:0;
+  left:0;
+  border-radius:10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:40px;
+  color:#fff;
+  box-shadow: 0 0 20px rgba(255,0,100,0.6);
+}
+/* Jatuh hati */
+.fallheart{
+  position:absolute;
+  top:-20px;
+  font-size:28px;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  0%{transform:translateY(-50px);}
+  100%{transform:translateY(110vh);}
+}
+/* Ledakan jantung klik */
+.clickheart{
+  position:absolute;
+  font-size:24px;
+  animation:explode 1.5s forwards;
+}
+@keyframes explode{
+  0%{transform:scale(0);}
+  100%{transform:scale(1.5);opacity:0;}
+}
+/* Confetti hati */
+.confetti{
+  position:absolute;
+  font-size:28px;
+  animation:confettiFall 2s forwards;
+}
+@keyframes confettiFall{
+  0%{opacity:1; transform:translateY(0) rotate(0deg);}
+  100%{opacity:0; transform:translateY(100vh) rotate(720deg);}
+}
+.animations{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:10;
+}
+</style>
+</head>
+<body>
+<div class="background"></div>
+<div class="overlay"></div>
+
+<div class="envelope" id="envelope">💌</div>
+
+<div class="container" id="container">
+<h1>SUPRISE!!</h1>
+<div class="ring-box" id="ringBox">
+  <div class="love-shape">💍</div>
+</div>
+</div>
+
+<div class="animations" id="animations"></div>
+
+<script>
+// Jatuh hati perlahan
+const hearts=["❤️","💖","💗","💘","💞","💕","💝"];
+function fallHeart(){
+  let h = document.createElement("div");
+  h.className="fallheart";
+  h.innerHTML = hearts[Math.floor(Math.random()*hearts.length)];
+  h.style.left = Math.random()*90+"vw";
+  h.style.animationDuration = (Math.random()*5+5)+"s";
+  document.getElementById("animations").appendChild(h);
+  setTimeout(()=>h.remove(),10000);
+}
+setInterval(fallHeart,700);
+
+// Buka amplop
+document.getElementById("envelope").addEventListener("click", function(){
+  this.classList.add("open");
+  setTimeout(()=>{
+    this.style.display="none";
+    const container = document.getElementById("container");
+    container.style.display="block";
+    // buka kotak cincin perlahan
+    setTimeout(()=>{document.getElementById("ringBox").classList.add("open");},500);
+  },600);
+});
+
+// Klik layar -> ledakan jantung MERIAH
+document.addEventListener("click", function(e){
+  const animContainer = document.getElementById("animations");
+  for(let i=0;i<100;i++){
+    let h = document.createElement("div");
+    h.className="clickheart";
+    h.innerHTML = hearts[Math.floor(Math.random()*hearts.length)];
+    h.style.left = e.clientX + "px";
+    h.style.top = e.clientY + "px";
+    h.style.fontSize = (15+Math.random()*35) + "px";
+    h.style.position="absolute";
+    h.style.zIndex = "10";
+
+    // acak arah & jarak terbang
+    const angle = Math.random()*2*Math.PI;
+    const distance = 150+Math.random()*200;
+    const dx = Math.cos(angle)*distance;
+    const dy = Math.sin(angle)*distance;
+
+    // animasi smooth
+    h.style.transition = "transform 1.5s ease-out, opacity 1.5s ease-out";
+    animContainer.appendChild(h);
+
+    requestAnimationFrame(()=>{
+      h.style.transform = `translate(${dx}px, ${dy}px) rotate(${Math.random()*720}deg)`;
+      h.style.opacity = 0;
+    });
+
+    setTimeout(()=>h.remove(),1600);
+  }
+});
+</script>
+</body>
+</html>
