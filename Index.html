@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Untuk Kamu ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+background:#ff758c;
+font-family:sans-serif;
+text-align:center;
+color:white;
+overflow:hidden;
+}
+
+.container{
+margin-top:40vh;
+}
+
+button{
+padding:15px 25px;
+font-size:18px;
+border:none;
+border-radius:10px;
+background:#ff3b6b;
+color:white;
+}
+
+#msg{
+display:none;
+font-size:20px;
+max-width:400px;
+margin:auto;
+margin-top:20px;
+}
+
+.rose{
+position:absolute;
+top:-20px;
+font-size:24px;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-50px)}
+100%{transform:translateY(110vh)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Untuk Kamu ❤️</h1>
+
+<button onclick="show()">Buka Pesan</button>
+
+<div id="msg">
+Sejak kamu hadir,
+hidupku terasa lebih indah.
+
+Terima kasih sudah menjadi
+bagian dari hidupku. ❤️
+</div>
+
+</div>
+
+<script>
+
+function show(){
+document.getElementById("msg").style.display="block";
+}
+
+function rose(){
+
+let r=document.createElement("div");
+
+r.className="rose";
+r.innerHTML="🌹";
+
+r.style.left=Math.random()*100+"vw";
+r.style.animationDuration=(Math.random()*5+5)+"s";
+
+document.body.appendChild(r);
+
+setTimeout(()=>{r.remove()},10000)
+
+}
+
+setInterval(rose,400);
+
+</script>
+
+</body>
+</html>
